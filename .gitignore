@@ -1,0 +1,54 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Visual Studio specific
+.vs/
+.vscode/
+
+# NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Rider
+.idea/
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+
+# Temporary files
+*.swp
+*.tmp
+*.temp
+~$*
+
+# Backup files
+*.bak
+*.old
+
+# Web
+node_modules/
+wwwroot/
+libman.json
+
+# Docker
+**/Dockerfile
+**/docker-compose*
+.env
