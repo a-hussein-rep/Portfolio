@@ -77,16 +77,16 @@ public class ProductsController : ControllerBase
             {
                 return NotFound("Product not found");
             }
+
+            return NoContent();
         }
         catch (Exception ex)
         {
             return StatusCode(500, ex.Message);
         }
-
-        return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id}")] //api/product/b2fa1c18-6baf-4e5c-9285-1f8bfaf2cd0f
     public async Task<IActionResult> DeleteProductById(Guid id)
     {
         try
