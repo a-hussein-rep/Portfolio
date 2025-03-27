@@ -1,3 +1,9 @@
+# current directory unnessesery folders 
+ComponentsTemplates/
+EinfuehrungInBlazor/
+Hilfsmittel/
+TaskManagementApp/
+
 # Build results
 bin/
 obj/
