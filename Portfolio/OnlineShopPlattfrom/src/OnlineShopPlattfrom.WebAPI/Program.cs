@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using OnlineShopPlattfrom.WebAPI.Data;
 using OnlineShopPlattfrom.WebAPI.Repositories.Implementations;
@@ -12,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(options => 
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
 
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
@@ -26,6 +27,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
+
+app.UseCors(
+    policy => policy.WithOrigins("https://localhost:7047", "https://localhost:7025")
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+);
+
 
 app.UseHttpsRedirection();
 
