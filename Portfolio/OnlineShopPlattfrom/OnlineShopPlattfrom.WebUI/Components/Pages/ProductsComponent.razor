@@ -1,0 +1,36 @@
+﻿@page "/products-list/{category}"
+
+@inject IProductsService ProductService
+
+@if (Products.Count() <= 0)
+{
+    <span class="h5">Loading...</span>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Products)
+        {
+            <div class="col-4">
+                @item.Name 
+                @item.Category
+                @item.Price
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private IEnumerable<ProductModel> Products { get; set; } = new List<ProductModel>();
+
+    [Parameter]
+    public string Category { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrEmpty(Category) is false)
+        {
+            this.Products = await ProductService.GetProductsByCategory(Category);
+        }
+    }
+}

@@ -1,4 +1,6 @@
 using OnlineShopPlattfrom.WebUI.Components;
+using OnlineShopPlattfrom.WebUI.Services.Implementations;
+using OnlineShopPlattfrom.WebUI.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ builder.Services.AddHttpClient("ProductClient", (options) =>
 {
     options.BaseAddress = new Uri("https://localhost:7047");
 });
+
+builder.Services.AddScoped<IProductsService, ProductsService>();
 
 var app = builder.Build();
 
