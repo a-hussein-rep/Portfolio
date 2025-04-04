@@ -1,14 +1,19 @@
 ﻿<div class="card" style="width: 18rem;">
     @if (!string.IsNullOrEmpty(Product.ImageUrl))
     {
-        <img src="@Product.ImageUrl" class="card-img-top" alt="@Product.Name" />
+        <img src="/images/OIP.jpeg" class="card-img-top" alt="@Product.Name" />
     }
     <div class="card-body">
         <h5 class="card-title">@Product.Name</h5>
-        <h6 class="card-subtitle mb-2 text-muted">@Product.Category</h6>
+        @if (Product is MultimediaProductModel multimediaProduct)
+        {
+            <p>@multimediaProduct.DisplaySize Zoll, @multimediaProduct.DisplayType, @multimediaProduct.Model</p>
+        }
+        <hr />
         <p class="card-text">
             <strong>€@Product.Price </strong><br />
-            @if(Product.Quantity <= 20) {
+            @if (Product.Quantity <= 20)
+            {
                 <strong class="fast-ausverkauft-lable">Fast ausverkauft</strong>
             }
         </p>

@@ -1,108 +1,118 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OnlineShopPlattfrom.WebAPI.Data;
+
+using OnlineShopPlattfrom.SharedLibrary.Models;
+
 using OnlineShopPlattfrom.WebAPI.Data.Entities;
+using OnlineShopPlattfrom.WebAPI.Repositories.Interfaces;
 
-namespace OnlineShopPlattfrom.WebAPI.Controllers
+namespace OnlineShopPlattfrom.WebAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class MultimediaProductsController : BaseProductController<MultimediaProduct>
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class MultimediaProductsController : ControllerBase
+    public MultimediaProductsController(IGenericRepository<MultimediaProduct> repository)
+        : base(repository)
+    { }
+
+    // GET: api/MultimediaProducts
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<MultimediaProduct>>> GetMultimediaProducts()
     {
-        private readonly AppDbContext _context;
-
-        public MultimediaProductsController(AppDbContext context)
+        try
         {
-            _context = context;
+            var products = await Repository.GetAllAsync();
+
+            return Ok(products);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    // GET: api/MultimediaProducts/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<MultimediaProduct>> GetMultimediaProduct(Guid id)
+    {
+        var multimediaProduct = await Repository.GetByIdAsync(id);
+
+        if (multimediaProduct == null)
+        {
+            return NotFound();
         }
 
-        // GET: api/MultimediaProducts
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<MultimediaProduct>>> GetMultimediaProducts()
+        return multimediaProduct;
+    }
+
+    // PUT: api/MultimediaProducts/5
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutMultimediaProduct(Guid id, MultimediaProduct multimediaProduct)
+    {
+        if (id != multimediaProduct.Id)
         {
-            return await _context.MultimediaProducts.ToListAsync();
+            return BadRequest();
         }
 
-        // GET: api/MultimediaProducts/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<MultimediaProduct>> GetMultimediaProduct(Guid id)
+        try
         {
-            var multimediaProduct = await _context.MultimediaProducts.FindAsync(id);
-
-            if (multimediaProduct == null)
+            await Repository.UpdateAsync(multimediaProduct);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!MultimediaProductExists(id))
             {
                 return NotFound();
             }
-
-            return multimediaProduct;
-        }
-
-        // PUT: api/MultimediaProducts/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMultimediaProduct(Guid id, MultimediaProduct multimediaProduct)
-        {
-            if (id != multimediaProduct.Id)
+            else
             {
-                return BadRequest();
+                throw;
             }
-
-            _context.Entry(multimediaProduct).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MultimediaProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
-        // POST: api/MultimediaProducts
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<MultimediaProduct>> PostMultimediaProduct(MultimediaProduct multimediaProduct)
+        return NoContent();
+    }
+
+    // POST: api/MultimediaProducts
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPost]
+    public async Task<ActionResult<MultimediaProduct>> PostMultimediaProduct(MultimediaProductModel model)
+    {
+        var multimediaProduct = new MultimediaProduct
         {
-            _context.MultimediaProducts.Add(multimediaProduct);
-            await _context.SaveChangesAsync();
+            Category = model.Category,
+            Description = model.Description,
+            Name = model.Name, 
+            DisplaySize = model.DisplaySize, 
+            DisplayType = model.DisplayType,
+            ImageUrl = model.ImageUrl,
+            Model = model.Model,
+            Price = model.Price, 
+            Quantity = model.Quantity, 
+            WeightInKG = model.WeightInKG
+        };
 
-            return CreatedAtAction("GetMultimediaProduct", new { id = multimediaProduct.Id }, multimediaProduct);
-        }
+        await Repository.AddAsync(multimediaProduct);
 
-        // DELETE: api/MultimediaProducts/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMultimediaProduct(Guid id)
+        return CreatedAtAction("GetMultimediaProduct", new { id = multimediaProduct.Id }, multimediaProduct);
+    }
+
+    // DELETE: api/MultimediaProducts/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteMultimediaProduct(Guid id)
+    {
+        if (await Repository.DeleteAsync(id) is false)
         {
-            var multimediaProduct = await _context.MultimediaProducts.FindAsync(id);
-            if (multimediaProduct == null)
-            {
-                return NotFound();
-            }
-
-            _context.MultimediaProducts.Remove(multimediaProduct);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return NotFound();
         }
 
-        private bool MultimediaProductExists(Guid id)
-        {
-            return _context.MultimediaProducts.Any(e => e.Id == id);
-        }
+        return NoContent();
+    }
+
+    private bool MultimediaProductExists(Guid id)
+    {
+        return Repository.GetByIdAsync(id) is not null;
     }
 }

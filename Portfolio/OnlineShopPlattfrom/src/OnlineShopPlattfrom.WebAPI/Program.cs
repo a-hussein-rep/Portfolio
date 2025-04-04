@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
 using OnlineShopPlattfrom.WebAPI.Data;
+using OnlineShopPlattfrom.WebAPI.Repositories.Implementations;
+using OnlineShopPlattfrom.WebAPI.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 
 var app = builder.Build();

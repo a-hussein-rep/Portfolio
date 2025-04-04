@@ -1,0 +1,28 @@
+﻿@page "/seller/dashboard/home"
+@* @attribute [Authorize(Roles = "seller")] *@
+
+<h5>Control panel</h5>
+
+@if (!IsAuthorized)
+{
+    <p>You are not authorized to view this page.</p>
+}
+else
+{
+    @* show control panel functions as cards*@
+    <div>
+        @* add new product *@
+        <a class="btn btn-primary" href="" >Add New Product</a>
+    </div>
+
+    <div>
+        @* Manage product(s) *@
+        <a class="btn btn-secondary" href="" >Add New Product</a>
+    </div>
+}
+
+
+@code
+{
+    private bool IsAuthorized = true;
+}
