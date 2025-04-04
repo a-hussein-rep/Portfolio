@@ -11,17 +11,13 @@ else
     <div class="row">
         @foreach (var item in Products)
         {
-            <div class="col-4">
-                @item.Name 
-                @item.Category
-                @item.Price
-            </div>
+           <ProductItemCardComponent Product="item" />
         }
     </div>
 }
 
 @code {
-    private IEnumerable<ProductModel> Products { get; set; } = new List<ProductModel>();
+    private IEnumerable<MultimediaProductModel> Products { get; set; } = new List<MultimediaProductModel>();
 
     [Parameter]
     public string Category { get; set; }

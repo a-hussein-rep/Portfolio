@@ -4,7 +4,7 @@ namespace OnlineShopPlattfrom.WebUI.Services.Interfaces;
 
 public interface IProductsService
 {
-    Task<IEnumerable<ProductModel>> GetProductsByCategory(string category);
+    Task<IEnumerable<MultimediaProductModel>> GetProductsByCategory(string category);
 
-    Task<ProductModel?> GetProductById(Guid id);
+    Task<MultimediaProductModel?> GetProductByIdAndCategory(Guid id, string category);
 }

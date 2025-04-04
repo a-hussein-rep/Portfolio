@@ -1,5 +1,6 @@
 ﻿using OnlineShopPlattfrom.SharedLibrary.Models;
 using OnlineShopPlattfrom.WebUI.Services.Interfaces;
+using System.ComponentModel;
 
 namespace OnlineShopPlattfrom.WebUI.Services.Implementations;
 
@@ -12,15 +13,15 @@ public class ProductsService : IProductsService
         this.httpClient = clientFactory.CreateClient("ProductClient");    
     }
 
-    public async Task<ProductModel?> GetProductById(Guid id)
+    public async Task<MultimediaProductModel?> GetProductByIdAndCategory(Guid id, string category)
     {
-        return await httpClient.GetFromJsonAsync<ProductModel>($"api/products/{id}");
+        return await httpClient.GetFromJsonAsync<MultimediaProductModel>($"api/{category}/{id}");
     }
 
-    public async Task<IEnumerable<ProductModel>> GetProductsByCategory(string category)
+    public async Task<IEnumerable<MultimediaProductModel>> GetProductsByCategory(string category)
     {
-        var products = await httpClient.GetFromJsonAsync<IEnumerable<ProductModel>>($"api/products/list/{category}") 
-            ?? new List<ProductModel>();
+        var products = await httpClient.GetFromJsonAsync<IEnumerable<MultimediaProductModel>>($"api/{category}/") 
+            ?? new List<MultimediaProductModel>();
 
         return products;
     }

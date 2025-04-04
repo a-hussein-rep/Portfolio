@@ -10,4 +10,8 @@
     <ProjectReference Include="..\src\OnlineShopPlattfrom.SharedLibrary\OnlineShopPlattfrom.SharedLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>
