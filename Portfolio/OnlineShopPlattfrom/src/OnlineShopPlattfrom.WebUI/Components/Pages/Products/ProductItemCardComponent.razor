@@ -1,4 +1,6 @@
-﻿<div class="card" style="width: 18rem;">
+﻿@using OnlineShopPlattfrom.SharedLibrary.Internal
+
+<div class="card" style="width: 18rem;">
     @if (!string.IsNullOrEmpty(Product.ImageUrl))
     {
         <img src="/images/OIP.jpeg" class="card-img-top" alt="@Product.Name" />
@@ -22,5 +24,5 @@
 
 @code {
     [Parameter]
-    public MultimediaProductModel Product { get; set; }
+    public ProductBase Product { get; set; }
 }
