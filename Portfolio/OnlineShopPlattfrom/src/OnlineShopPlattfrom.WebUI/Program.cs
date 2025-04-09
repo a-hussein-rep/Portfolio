@@ -12,7 +12,7 @@ builder.Services.AddHttpClient("ProductClient", (options) =>
     options.BaseAddress = new Uri("https://localhost:7047");
 });
 
-builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddScoped<IMultimediaProductsService, MultimediaProductsService>();
 
 var app = builder.Build();
 

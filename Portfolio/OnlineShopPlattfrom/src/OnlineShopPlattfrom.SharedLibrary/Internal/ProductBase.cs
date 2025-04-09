@@ -1,4 +1,6 @@
-﻿namespace OnlineShopPlattfrom.SharedLibrary.Internal;
+﻿using System.Text.Json.Serialization;
+
+namespace OnlineShopPlattfrom.SharedLibrary.Internal;
 
 public abstract class ProductBase
 {

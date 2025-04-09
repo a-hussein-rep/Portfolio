@@ -1,13 +1,14 @@
 ﻿using OnlineShopPlattfrom.SharedLibrary.Models;
+
 using OnlineShopPlattfrom.WebUI.Services.Interfaces;
 
 namespace OnlineShopPlattfrom.WebUI.Services.Implementations;
 
-public class ProductsService : IProductsService
+public class MultimediaProductsService : IMultimediaProductsService
 {
     private readonly HttpClient httpClient;
 
-    public ProductsService(IHttpClientFactory clientFactory)
+    public MultimediaProductsService(IHttpClientFactory clientFactory)
     {
         this.httpClient = clientFactory.CreateClient("ProductClient");    
     }
@@ -18,9 +19,9 @@ public class ProductsService : IProductsService
     }
 
     public async Task<IEnumerable<MultimediaProductModel>> GetProductsByCategory(string category)
-    {
+        {
         var products = await httpClient.GetFromJsonAsync<IEnumerable<MultimediaProductModel>>($"api/{category}/") 
-            ?? new List<MultimediaProductModel>();
+            ?? [];
 
         return products;
     }

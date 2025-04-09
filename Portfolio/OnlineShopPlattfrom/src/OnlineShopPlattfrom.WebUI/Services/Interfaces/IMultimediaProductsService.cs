@@ -2,7 +2,7 @@
 
 namespace OnlineShopPlattfrom.WebUI.Services.Interfaces;
 
-public interface IProductsService
+public interface IMultimediaProductsService
 {
     Task<IEnumerable<MultimediaProductModel>> GetProductsByCategory(string category);
 
