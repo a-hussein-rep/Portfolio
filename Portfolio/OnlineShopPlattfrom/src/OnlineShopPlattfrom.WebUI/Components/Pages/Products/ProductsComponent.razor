@@ -1,9 +1,11 @@
 ﻿@page "/products-list/{category}"
 
 @using OnlineShopPlattfrom.SharedLibrary.Internal
+@using OnlineShopPlattfrom.WebUI.Services
+@using OnlineShopPlattfrom.WebUI.Services.Interfaces
 @attribute [StreamRendering]
 
-@inject IMultimediaProductsService ProductService
+@inject IProductsService ProductService
 
 @if (Products.Count() <= 0)
 {
