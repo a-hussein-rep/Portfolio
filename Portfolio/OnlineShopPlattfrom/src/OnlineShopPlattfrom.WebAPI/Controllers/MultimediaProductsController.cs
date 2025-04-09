@@ -8,7 +8,7 @@ using OnlineShopPlattfrom.WebAPI.Repositories.Interfaces;
 
 namespace OnlineShopPlattfrom.WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/multimedia")]
 [ApiController]
 public class MultimediaProductsController : BaseProductController<MultimediaProduct>
 {
@@ -16,7 +16,7 @@ public class MultimediaProductsController : BaseProductController<MultimediaProd
         : base(repository)
     { }
 
-    // GET: api/MultimediaProducts
+    // GET: api/multimedia
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MultimediaProduct>>> GetMultimediaProducts()
     {
@@ -32,7 +32,7 @@ public class MultimediaProductsController : BaseProductController<MultimediaProd
         }
     }
 
-    // GET: api/MultimediaProducts/5
+    // GET: api/multimedia/5
     [HttpGet("{id}")]
     public async Task<ActionResult<MultimediaProduct>> GetMultimediaProduct(Guid id)
     {
@@ -46,7 +46,7 @@ public class MultimediaProductsController : BaseProductController<MultimediaProd
         return multimediaProduct;
     }
 
-    // PUT: api/MultimediaProducts/5
+    // PUT: api/multimedia/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
     public async Task<IActionResult> PutMultimediaProduct(Guid id, MultimediaProduct multimediaProduct)
@@ -62,7 +62,7 @@ public class MultimediaProductsController : BaseProductController<MultimediaProd
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!MultimediaProductExists(id))
+            if (ProductExists(id) is false)
             {
                 return NotFound();
             }
@@ -75,7 +75,7 @@ public class MultimediaProductsController : BaseProductController<MultimediaProd
         return NoContent();
     }
 
-    // POST: api/MultimediaProducts
+    // POST: api/multimedia
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
     public async Task<ActionResult<MultimediaProduct>> PostMultimediaProduct(MultimediaProductModel model)
@@ -99,7 +99,7 @@ public class MultimediaProductsController : BaseProductController<MultimediaProd
         return CreatedAtAction("GetMultimediaProduct", new { id = multimediaProduct.Id }, multimediaProduct);
     }
 
-    // DELETE: api/MultimediaProducts/5
+    // DELETE: api/multimedia/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteMultimediaProduct(Guid id)
     {
@@ -109,10 +109,5 @@ public class MultimediaProductsController : BaseProductController<MultimediaProd
         }
 
         return NoContent();
-    }
-
-    private bool MultimediaProductExists(Guid id)
-    {
-        return Repository.GetByIdAsync(id) is not null;
     }
 }

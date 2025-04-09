@@ -1,5 +1,6 @@
 ﻿using OnlineShopPlattfrom.SharedLibrary.Internal;
 using OnlineShopPlattfrom.SharedLibrary.Models;
+
 using OnlineShopPlattfrom.WebUI.Services.Interfaces;
 
 namespace OnlineShopPlattfrom.WebUI.Services;
@@ -13,20 +14,26 @@ public class ProductsService : IProductsService
         httpClient = clientFactory.CreateClient("ProductClient");
     }
 
-    public async Task<ProductBase?> GetProductByIdAndCategory(Guid id, string category)
-        => category switch
+    public async Task<ProductBase?> GetProductByIdAndCategory(Guid id, string endpoint)
+        => endpoint switch
         {
-            "MultimediaProducts" => await httpClient
-                .GetFromJsonAsync<MultimediaProductModel>($"api/{category}/{id}"),
+            "multimedia" => await httpClient
+                .GetFromJsonAsync<MultimediaProductModel>($"api/{endpoint}/{id}"),
 
-            _ => throw new NotSupportedException($"Unknown product type: {category}")
+            "wearable" => await httpClient
+                .GetFromJsonAsync<WearableProductModel>($"api/{endpoint}/{id}"),
+
+            _ => throw new NotSupportedException($"Unknown product type: {endpoint}")
         };
 
-    public async Task<IEnumerable<ProductBase>> GetProductsByCategory(string category)
-        => category switch
+    public async Task<IEnumerable<ProductBase>> GetProductsByCategory(string endpoint)
+        => endpoint switch
         {
-            "MultimediaProducts" => await httpClient
-                .GetFromJsonAsync<IEnumerable<MultimediaProductModel>>($"api/{category}/") ?? [],
+            "multimedia" => await httpClient
+                .GetFromJsonAsync<IEnumerable<MultimediaProductModel>>($"api/{endpoint}/") ?? [],
+
+            "wearable" => await httpClient
+                .GetFromJsonAsync<IEnumerable<WearableProductModel>>($"api/{endpoint}/") ?? [],
 
             _ => []
 

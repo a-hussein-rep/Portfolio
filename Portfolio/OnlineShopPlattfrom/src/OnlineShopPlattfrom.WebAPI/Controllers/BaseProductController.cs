@@ -15,5 +15,10 @@ namespace OnlineShopPlattfrom.WebAPI.Controllers
         {
             Repository = repository;
         }
+
+        protected bool ProductExists(Guid id)
+        {
+            return Repository.GetByIdAsync(id) is not null;
+        }
     }
 }
