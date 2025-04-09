@@ -1,6 +1,6 @@
 ﻿namespace OnlineShopPlattfrom.WebAPI.Data.Entities;
 
-public class Product
+public abstract class Product
 {
     public Guid Id { get; set; }
 
