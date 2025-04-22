@@ -1,0 +1,34 @@
+﻿@page "/products/{category}/search/search-prompt={searchprompt}"
+
+@inject IProductsService ProductService
+
+@if (Products.Count() <= 0 || Products is null)
+{
+    <span class="h5">Loading...</span>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Products)
+        {
+            <ProductItemCardComponent Product="item" />
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string Category { get; set; } = null!;
+
+    [Parameter]
+    public string Searchprompt { get; set; } = null!;
+
+    private IEnumerable<ProductBase> Products { get; set; } = new List<ProductBase>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.Products = (await ProductService.GetProductsByCategory(Category))
+            .Where(p => p.Name.Contains(Searchprompt) || p.Description.Contains(Searchprompt))
+            .ToList();
+    }
+}

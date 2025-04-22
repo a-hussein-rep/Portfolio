@@ -1,0 +1,40 @@
+﻿@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+
+<div class="container mt-3">
+    <div class="row">
+        <!-- Unified Input Group for Search and Category -->
+        <div class="col-12 col-md-8 mb-3">
+            <div class="input-group">
+                <!-- Category Dropdown -->
+                <select class="form-select" @bind="selectedCategory" style="max-width: 150px;">
+                    <option value="">All Categories</option>
+                    <option value="wearable">Wearable</option>
+                    <option value="multimedia">Multimedia</option>
+                </select>
+
+                <!-- Search Input -->
+                <input type="text" class="form-control" placeholder="Enter search text here" @bind="searchText" />
+
+                <!-- Search Button with Icon -->
+                <button class="btn btn-outline-primary" type="button" @onclick="Search">
+                    🔍
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string? selectedCategory;
+
+    private string? searchText;
+
+    private void Search()
+    {
+        Console.WriteLine("search clicked");
+
+        var url = $"/products/{selectedCategory}/search/search-prompt={searchText}";
+        this.NavigationManager.NavigateTo(url);
+    }
+}

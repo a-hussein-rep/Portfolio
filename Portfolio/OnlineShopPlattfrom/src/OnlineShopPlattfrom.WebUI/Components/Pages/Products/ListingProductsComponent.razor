@@ -1,0 +1,18 @@
+﻿@if (Products.Count() <= 0)
+{
+    <span class="h5">Loading...</span>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Products)
+        {
+            <ProductItemCardComponent Product="item" />
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<ProductBase> Products { get; set; } = new List<ProductBase>();
+}

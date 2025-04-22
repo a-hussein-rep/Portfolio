@@ -1,0 +1,25 @@
+﻿@page "/products/{category}"
+
+@attribute [StreamRendering]
+
+@inject IProductsService ProductService
+@inject NavigationManager NavigationManager
+
+<ListingProductsComponent Products="Products" />
+
+@code {
+    private IEnumerable<ProductBase> Products { get; set; } = new List<ProductBase>();
+
+    [Parameter]
+    public string? Category { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrEmpty(Category) is false)
+        {
+            this.Products = await ProductService.GetProductsByCategory(Category);
+            
+            Console.WriteLine("component initialized!");
+        }
+    }
+}
