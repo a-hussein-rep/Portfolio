@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using PersonalBlog.Database;
+using PersonalBlog.Internal;
 using PersonalBlog.Models;
 
 namespace PersonalBlog.Controllers;
@@ -39,6 +40,7 @@ public class ArticleController : Controller
     }
 
     // GET: Article/Create
+    [BasicAuth]
     public IActionResult Create()
     {
         return View();
@@ -49,6 +51,7 @@ public class ArticleController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [BasicAuth]
     public async Task<IActionResult> Create(ArticleModel articleModel)
     {
         if (ModelState.IsValid)
@@ -81,6 +84,7 @@ public class ArticleController : Controller
     }
 
     // GET: Article/Edit/5
+    [BasicAuth]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -101,6 +105,7 @@ public class ArticleController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [BasicAuth]
     public async Task<IActionResult> Edit(int id, ArticleModel articleModel)
     {
         if (id != articleModel.Id)
@@ -146,6 +151,7 @@ public class ArticleController : Controller
     }
 
     // GET: Article/Delete/5
+    [BasicAuth]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -166,6 +172,7 @@ public class ArticleController : Controller
     // POST: Article/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [BasicAuth]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var articleModel = await dbContext.Articles.FindAsync(id);
