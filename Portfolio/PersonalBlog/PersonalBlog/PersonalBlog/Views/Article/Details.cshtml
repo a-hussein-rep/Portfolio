@@ -1,0 +1,29 @@
+﻿@model PersonalBlog.Models.ArticleModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container my-5">
+    <div class="card mx-auto shadow" style="max-width: 800px;">
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <img class="card-img-top" src="data:image/png;base64,@Model.Image" alt="Article image">
+        }
+        <div class="card-body">
+            <h1 class="card-title">@Model.Title</h1>
+            <h6 class="card-subtitle mb-3 text-muted">
+                By @Model.Author • @Model.CreatedAt.ToString("MMMM dd, yyyy")
+            </h6>
+            <p class="card-text" style="white-space: pre-wrap; text-align: justify;">@Model.Content</p>
+
+            <div class="form-group mt-5 row">
+                <div class="d-flex gap-2">
+                    @* <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> *@
+                    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back to Home</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

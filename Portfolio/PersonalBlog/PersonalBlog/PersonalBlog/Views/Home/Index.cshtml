@@ -1,0 +1,37 @@
+﻿@model IEnumerable<PersonalBlog.Models.ArticleModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+                <div class="card shadow-sm flex-fill">
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <img class="card-img-top"
+                             src="data:image/png;base64,@item.Image"
+                             alt="Article image"
+                             style="height: 8em; object-fit: contain;">
+                    }
+
+                    <div class="card-body">
+                        <div style="height:7em">
+                            <h5 class="card-title">@item.Title</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                By @item.Author • @item.CreatedAt.ToString("MMMM dd, yyyy")
+                            </h6>
+                        </div>
+                        <p class="card-text flex-grow-1 flex-wrap overflow-hidden" style="height: 10.5em;">
+                            @item.Content
+                        </p>
+                        <a href="/Article/Details/@item.Id" class="btn btn-primary btn-sm">Read More</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
