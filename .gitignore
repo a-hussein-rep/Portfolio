@@ -3,6 +3,13 @@ ComponentsTemplates/
 EinfuehrungInBlazor/
 Hilfsmittel/
 TaskManagementApp/
+AspNetBasicProject/
+ICDL_CSharp/
+OTHERS/
+Python/
+
+*.pdf
+
 
 # Build results
 bin/
