@@ -13,7 +13,6 @@ public class AppDbContext : DbContext
     
     public DbSet<WearableProduct> WearableProducts { get; set; }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<MultimediaProduct>()
