@@ -19,7 +19,10 @@
 
             <div class="form-group mt-5 row">
                 <div class="d-flex gap-2">
-                    @* <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> *@
+                    @if (Context.Session.GetString("IsAdmin") == "true")
+                    {
+                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+                    }
                     <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back to Home</a>
                 </div>
             </div>

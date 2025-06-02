@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Text;
 
 namespace PersonalBlog.Internal;
 
@@ -8,6 +9,12 @@ public class BasicAuthAttribute : Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
+        var session = context.HttpContext.Session;
+        if (session.GetString("IsAdmin") == "true")
+        {
+            return;
+        }
+
         var config = context.HttpContext.RequestServices.GetService(typeof(IConfiguration)) as IConfiguration;
         var username = config["AdminAuth:Username"];
         var password = config["AdminAuth:Password"];
@@ -22,6 +29,8 @@ public class BasicAuthAttribute : Attribute, IAuthorizationFilter
 
             if (parts.Length == 2 && parts[0] == username && parts[1] == password)
             {
+                session.SetString("IsAdmin", "true");
+                
                 return; // Authorized
             }
         }
