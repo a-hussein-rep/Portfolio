@@ -20,13 +20,11 @@
                                    Grid.Column="0"  
                                    VerticalOptions="Center"/>
 
-                            <ImageButton x:Name="DeleteButton"  
-                                    Source="trash.png"  
-                                    BackgroundColor="Transparent"  
+                            <Button x:Name="DeleteButton"  
+                                    Text="Delete"
+                                    BackgroundColor="{StaticResource Secondary}"  
                                     Grid.Column="1"  
                                     BorderColor="{StaticResource Primary}"
-                                    WidthRequest="30"
-                                    HeightRequest="30"
                                     VerticalOptions="Center"  
                                     Clicked="OnDeleteClicked"  
                                     CommandParameter="{Binding .}"/>
@@ -39,7 +37,7 @@
 
         <Button Text="Add Note"  
                 Clicked="OnAddNoteClicked"  
-                BackgroundColor="LightBlue"  
+                BackgroundColor="{StaticResource Primary}"  
                 TextColor="White"  
                 HorizontalOptions="Center"  
                 CornerRadius="5"/>
