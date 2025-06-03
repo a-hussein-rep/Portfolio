@@ -27,4 +27,9 @@ public partial class MainPage : ContentPage
     {
         await Navigation.PushAsync(new NewNotePage(notes));
     }
+
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+        
+    }
 }
