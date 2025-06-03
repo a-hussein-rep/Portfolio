@@ -27,4 +27,27 @@ public partial class MainPage : ContentPage
     {
         await Navigation.PushAsync(new NewNotePage(notes));
     }
+
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+        Console.WriteLine("Delete button clicked");
+
+        var button = sender as Button;
+        var noteToDelete = button?.CommandParameter as Note;
+
+        if (noteToDelete is null)
+            return;
+
+        bool confirm = await DisplayAlert(
+            "Delete Note",
+            $"Are you sure you want to delete \"{noteToDelete.Title}\"?",
+            "Yes", "No");
+
+
+        if (confirm)
+        {
+            Console.WriteLine($"Deleting note: {noteToDelete.Title}");
+            notes.Remove(noteToDelete);
+        }
+    }
 }

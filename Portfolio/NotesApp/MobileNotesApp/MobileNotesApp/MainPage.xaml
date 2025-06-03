@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
-             x:Class="MobileNotesApp.MainPage"
+             x:Class="MobileNotesApp.MainPage"  
              Title="Personal Note Application">
 
     <VerticalStackLayout Padding="20" Spacing="20">
@@ -9,21 +9,37 @@
         <CollectionView x:Name="NotesCollectionView" SelectionMode="Single" SelectionChanged="OnNoteSelected">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border Stroke="Gray" 
-                            StrokeShape="RoundRectangle 10" 
-                            Padding="10" 
+                    <Border Stroke="Gray"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="10"
                             Margin="5">
-                        <Label Text="{Binding Title}" FontSize="20"/>
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="{Binding Title}"  
+                                   FontAttributes="Bold"  
+                                   Grid.Column="0"  
+                                   VerticalOptions="Center"/>
+
+                            <Button x:Name="DeleteButton"  
+                                    Text="Delete"
+                                    BackgroundColor="{StaticResource Secondary}"  
+                                    Grid.Column="1"  
+                                    BorderColor="{StaticResource Primary}"
+                                    VerticalOptions="Center"  
+                                    Clicked="OnDeleteClicked"  
+                                    CommandParameter="{Binding .}"/>
+                        </Grid>
+
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Text="Add Note"
-                Clicked="OnAddNoteClicked"
-                BackgroundColor="LightBlue"
-                TextColor="White"
-                HorizontalOptions="Center"
+        <Button Text="Add Note"  
+                Clicked="OnAddNoteClicked"  
+                BackgroundColor="{StaticResource Primary}"  
+                TextColor="White"  
+                HorizontalOptions="Center"  
                 CornerRadius="5"/>
 
     </VerticalStackLayout>
