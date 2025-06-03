@@ -1,0 +1,20 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileNotesApp.NewNotePage"
+             Title="New Note">
+
+	<VerticalStackLayout Padding="20" Spacing="10">
+		
+		<Entry x:Name="TitleEntry" 
+			   Placeholder="Title" />
+		
+		<Editor x:Name="ContentEditor" 
+				Placeholder="Note content..." 
+				AutoSize="TextChanges" 
+				HeightRequest="200"/>
+		
+		<Button Text="Save" Clicked="OnSaveClicked"/>
+		
+	</VerticalStackLayout>
+
+</ContentPage>
