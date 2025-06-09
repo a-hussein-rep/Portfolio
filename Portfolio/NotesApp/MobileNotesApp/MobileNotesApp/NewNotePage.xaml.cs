@@ -1,50 +1,63 @@
 ﻿using System.Collections.ObjectModel;
 
+using MobileNotesApp.Database;
+
 namespace MobileNotesApp;
 
 partial class NewNotePage : ContentPage
 {
-    ObservableCollection<Note> _notes;
-    Note _toEditNote;
+    ObservableCollection<Note> notes;
 
-    public NewNotePage(ObservableCollection<Note> notes, Note toEditNote = null)
+    NotesDatabase database;
+
+    Note note;
+
+    public NewNotePage(ObservableCollection<Note> notes, NotesDatabase notesDatabase, Note toEditNote = null)
     {
         InitializeComponent();
 
-        _notes = notes;
-        _toEditNote = toEditNote;
+        this.notes = notes;
+
+        this.database = notesDatabase;
 
         if (toEditNote is not null)
         {
-            TitleEntry.Text = _toEditNote.Title;
-            ContentEditor.Text = _toEditNote.Content;
+            this.Title = "Edit Note";
+
+            this.note = toEditNote;
+
+            TitleEntry.Text = this.note.Title;
+            ContentEditor.Text = this.note.Content;
         }
     }
 
     private async void OnSaveClicked(object sender, EventArgs e)
     {
-        if(string.IsNullOrEmpty(TitleEntry.Text))
+        if (string.IsNullOrEmpty(TitleEntry.Text))
         {
             await DisplayAlert("Error", "Title cannot be empty.", "OK");
+
             return;
         }
 
-        if(_toEditNote is not null) // note exits, so update it
+        if (this.note is not null) // note exits, so update it
         {
-            _toEditNote.Title = TitleEntry.Text;
-            _toEditNote.Content = ContentEditor.Text;
+            this.note.Title = TitleEntry.Text;
+            this.note.Content = ContentEditor.Text;
         }
 
         else // note does not exist, so create it
         {
-            var note = new Note
+            this.note = new Note
             {
                 Title = TitleEntry.Text,
                 Content = ContentEditor.Text
             };
 
-            _notes.Add(note); 
+            notes.Add(note);
         }
+
+        await database.SaveNoteAsync(note);
 
         await Navigation.PopAsync(); // Go back to the main page
     }

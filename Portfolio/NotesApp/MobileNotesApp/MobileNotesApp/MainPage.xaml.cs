@@ -1,31 +1,50 @@
 ﻿using System.Collections.ObjectModel;
 
+using MobileNotesApp.Database;
+
 namespace MobileNotesApp;
 
 public partial class MainPage : ContentPage
 {
     ObservableCollection<Note> notes = new();
 
-    public MainPage()
+    NotesDatabase database;
+
+    public MainPage(NotesDatabase notesDatabase)
     {
         InitializeComponent();
 
-        NotesCollectionView.ItemsSource = notes;
+        database = notesDatabase;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await LoadNotesAsync();
+    }
+
+    private async Task LoadNotesAsync()
+    {
+        var notesFromDb = await database.GetNotesAsync();
+
+        this.notes = new ObservableCollection<Note>(notesFromDb);
+        
+        NotesCollectionView.ItemsSource = this.notes;
     }
 
     private async void OnNoteSelected(object sender, SelectionChangedEventArgs e)
     {
-        if(e.CurrentSelection.FirstOrDefault() is Note selectedNote)
+        if (e.CurrentSelection.FirstOrDefault() is Note selectedNote)
         {
-            await Navigation.PushAsync(new NewNotePage(notes, selectedNote));
+            await Navigation.PushAsync(new NewNotePage(notes,database, selectedNote));
 
-            NotesCollectionView.SelectedItem = null; // Deselect after click
+            NotesCollectionView.SelectedItem = null;
         }
     }
 
     private async void OnAddNoteClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new NewNotePage(notes));
+        await Navigation.PushAsync(new NewNotePage(notes, database));
     }
 
     private async void OnDeleteClicked(object sender, EventArgs e)
@@ -46,7 +65,8 @@ public partial class MainPage : ContentPage
 
         if (confirm)
         {
-            Console.WriteLine($"Deleting note: {noteToDelete.Title}");
+            await database.DeleteNoteAsync(noteToDelete);
+
             notes.Remove(noteToDelete);
         }
     }
