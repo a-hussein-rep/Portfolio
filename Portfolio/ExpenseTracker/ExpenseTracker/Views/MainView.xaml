@@ -13,19 +13,29 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0">
-            <Menu>
-                <MenuItem Header="Add" 
+        <Grid  Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel>
+                <Menu Grid.Column="0">
+                    <MenuItem Header="Add" 
                           Height="40" 
                           FontWeight="Bold" 
-                          Command="{Binding AddExpenseCommand}">
-                </MenuItem>
-            </Menu>
-        </DockPanel>
+                          Command="{Binding OpenAddExpenseWindowCommand}">
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+            <StackPanel Height="40" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Content="Delete" Height="40" Width="100" Command="{Binding DeleteItemCommand}"/>
+            </StackPanel>
+        </Grid>
 
-        <ListView Grid.Row="1" 
+        <ListView Grid.Row="1"
                   x:Name="ExpensesListView" 
                   ItemsSource="{Binding Expenses}"
+                  SelectedItem="{Binding SelectedExpense, Mode=TwoWay}"
                   Margin="10">
             <ListView.View>
                 <GridView>
