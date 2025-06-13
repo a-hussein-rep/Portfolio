@@ -18,4 +18,4 @@ Here, I went the **C# + ASP.NET MVC** route, using **Entity Framework Core** for
 A small but fun **MAUI** app written in C#. This project was all about managing my daily notes. Think of it as my personal digital notepad — lightweight, mobile-friendly, and a way for me to get comfy with **MAUI UI** and cross-platform development.
 
 ### 📝 Personal Expense Tracker
-A basic WPF app in c# using MVVM Pattern.
+A basic WPF app in c# using MVVM Pattern. I focused on using ICommnd and INotifyPropertyChanged interfaces! 
