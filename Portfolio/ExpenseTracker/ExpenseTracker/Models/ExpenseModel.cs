@@ -4,6 +4,8 @@ namespace ExpenseTracker.Models;
 
 public class ExpenseModel : PropertyChangedBase
 {
+    public int Id { get; set; }
+
     private decimal _amount;
     public decimal Amount
     {
