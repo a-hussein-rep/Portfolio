@@ -20,3 +20,6 @@ A small but fun **MAUI** app written in C#. This project was all about managing 
 ### 📝 Personal Expense Tracker
 A basic WPF app in c# using MVVM Pattern. I focused on using ICommnd and INotifyPropertyChanged interfaces!
 I also used sqlite and efc to store data localy. I used repository pattern to handle sqlite via efc!  
+
+### Task Hub
+A small, incomplete ASP.NET API demo showcasing how controllers work and how to use Entity Framework Core (EFC) to create a database. This project also served as a test for integrating Docker. Additionally, I used Swagger UI to test API endpoints and configured XML comments to document the Swagger interface.
