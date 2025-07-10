@@ -25,7 +25,7 @@ A small but fun **MAUI** app written in C#. This project was all about managing 
 A basic WPF app in c# using MVVM Pattern. I focused on using ICommnd and INotifyPropertyChanged interfaces!
 I also used sqlite and efc to store data localy. I used repository pattern to handle sqlite via efc!  
 
-### Task Hub
+### ⚙️ Task Hub
 This is a small, **incomplete** ASP.NET API project created to:
 
 - Demonstrate how **Controllers** work
