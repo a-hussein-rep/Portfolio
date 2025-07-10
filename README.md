@@ -2,6 +2,10 @@
 
 After I lost my hard disk — along with a ton of my personal projects (RIP 😢) — I decided to move things online. So here it is: a little safe haven for some of my own C# and .NET experiments, projects, and ideas.
 
+> ⚠️ Note: All projectare and not intended for production use and are only DEMOS.
+
+
+
 ### 🛒 Online Shop Plattform
 
 This was my ambitious attempt at creating a fully functional online shop web app using **Blazor** and **ASP.NET Web API**.  
@@ -22,4 +26,12 @@ A basic WPF app in c# using MVVM Pattern. I focused on using ICommnd and INotify
 I also used sqlite and efc to store data localy. I used repository pattern to handle sqlite via efc!  
 
 ### Task Hub
-A small, incomplete ASP.NET API demo showcasing how controllers work and how to use Entity Framework Core (EFC) to create a database. This project also served as a test for integrating Docker. Additionally, I used Swagger UI to test API endpoints and configured XML comments to document the Swagger interface.
+This is a small, **incomplete** ASP.NET API project created to:
+
+- Demonstrate how **Controllers** work
+- Use **Entity Framework Core (EFC)** to create a database
+- Experiment with **Docker** integration
+- Utilize **Swagger UI** to test API endpoints
+- Document the API using **XML comments** in Swagger
+
+
